@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Tous les messages' %}
+
+{% block body %}
+    <div class="container col-lg-5 mt-4">
+      <h1>Voir tous les messages</h1>
+
+      {% for message in messages %}
+          <div class="row">
+              <strong>{{ message.created_at }}
+                  {{ message.auteur }}
+              </strong> : &nbsp;
+              {{ message.contenu }}&nbsp;
+              {% if message.auteur == app.user.username|default('undefined') %}
+                  <a href="{{ path('message.edit', { 'id': message.id })}}" class="button">Editer</a>
+                  <form method="post" action="{{ path('message.delete', {id: message.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes vous vraiment sûr ?')">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+                      <button class="btn btn-danger">Supprimer</button>
+                  </form>
+              {% endif %}
+          </div>
+      {% endfor %}
+
+      </div>
+      <div class="pagination">
+          {{ knp_pagination_render(messages) }}
+      </div>
+{% endblock %}

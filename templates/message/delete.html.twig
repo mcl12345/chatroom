@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression d'un message{% endblock %}
+
+{% block body %}
+
+  {% form_theme form 'bootstrap_4_layout.html.twig' %}
+  <div class="container mt-4">
+      <form method="post" action="{{path('message.delete', {id : message.id})}}">
+          <h1>Supprimer le message</h1>
+          <span>{{ message.contenu }}</span><br /><br />
+          <button type="submit" class="btn btn-primary">{{ button|default('Supprimer') }}</button>
+      </form>
+  </div>
+
+
+{% endblock %}
