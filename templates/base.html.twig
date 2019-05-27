@@ -8,16 +8,28 @@
     </head>
     <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="{{ path('home')}}">Mon agence</a>
+  <a class="navbar-brand" href="{{ path('message.index')}}">Chatroom</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" {% if current_menu is defined and current_menu == "properties" %}active{% endif %} href=" {{ path('property.index') }}">Acheter</a>
+      <li class="nav-item {% if current_menu is defined and current_menu == 'messages' %}active{% endif %}">
+        <a class="nav-link" {% if current_menu is defined and current_menu == 'messages' %}active{% endif %} href=" {{ path('message.index') }}">Stream</a>
       </li>
+      {% if app.user %}
+          <li>
+              <a  class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+          </li>
+      {% else %}
+          <li class="nav-item {% if login_page is defined and login_page == 'login_page' %}active{% endif %}">
+            <a  class="nav-link"  {% if login_page is defined and login_page == 'login_page' %}active{% endif %} href="{{ path('login') }}">Se connecter</a>
+          </li>
+      {% endif %}
+          <li class="nav-item {% if message is defined %}active{% endif %}">
+            <a  class="nav-link"  {% if message is defined %}active{% endif %} href="{{ path('message.new') }}">Ecrire un message</a>
+          </li>
     </ul>
   </div>
 </nav>

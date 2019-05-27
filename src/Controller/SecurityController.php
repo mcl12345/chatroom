@@ -24,28 +24,15 @@ class SecurityController extends AbstractController {
     * @Route("/login", name="login")
     */
     public function login(AuthenticationUtils $authenticationUtils) : Response {
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $error        = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render("security/login.html.twig", [
           "last_username" => $lastUsername,
-          "error" => $error
+          "error" => $error,
+          "login_page" => "login_page",
         ]);
     }
-
-    /**
-    * //@Route("/register", name="register")
-    */
-    /*public function register(ObjectManager $em) {
-
-          $user = new User();
-          $user->setUsername($_POST[""]);
-          $user->setPassword($this->encoder->encodePassword($user, "demo"));
-          $user->setEmail("demo@demo.com");
-          $user->setRoles("ADMIN");
-          $em->persist($user);
-          $em->flush();
-        return $this->render("security/register.html.twig");
-    }*/
 }
 
 ?>
