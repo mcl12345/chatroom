@@ -34,7 +34,7 @@ class MessageRepository extends ServiceEntityRepository
     */
     public function findLatest() : array {
       return $this->findVisibleQuery()
-      ->setMaxResults(10)
+      ->setMaxResults(1000)
       ->getQuery()
       ->getResult();
     }

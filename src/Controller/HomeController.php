@@ -20,11 +20,11 @@ class HomeController extends AbstractController {
   /**
   * @var ObjectManager
   */
-  private $em;
+  private $om;
 
-  public function __construct(MessageRepository $messageRepository, ObjectManager $em ) {
+  public function __construct(MessageRepository $messageRepository, ObjectManager $om ) {
       $this->messageRepository = $messageRepository;
-      $this->em = $em;
+      $this->om = $om;
   }
 
   /**
@@ -34,7 +34,7 @@ class HomeController extends AbstractController {
   */
   public function index(PaginatorInterface $paginator, Request $request) : Response {
 
-    $messages = $paginator->paginate($this->messageRepository->findLatest(), $request->query->getInt('page', 1), 12);
+    $messages = $paginator->paginate($this->messageRepository->findLatest(), 12);
 
     return $this->render("message/index.html.twig", [
       "current_menu" => "messages",

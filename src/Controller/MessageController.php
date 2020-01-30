@@ -45,21 +45,22 @@ class MessageController extends AbstractController {
       ]);
   }
 
-/**
-* @Route("/messages/{slug}-{id}", name="message.show", requirements={"slug": "[a-z0-9\-]*"})
-* @return Response
-*/
-  public function show(Message $message, string $slug) : Response {
-      if($message->getSlug() !== $slug) {
+  /**
+  * @Route("/messages/{slugs}-{id}", name="message.show", requirements={"slugs": "[a-z0-9\-]*"})
+  * @return Response
+  */
+  public function show(Message $message, string $slugs) : Response {
+
+      /*if($message->getSlug() !== $slug) {
           return $this->redirectToRoute("message.show", [
             "id" => $message->getId(),
-            "slug" => $message->getSlug()
+            "slug" => $slug
           ], 301);
-      }
+      }*/
 
       return $this->render("message/show.html.twig", [
         "message" => $message,
-        "current_menu" => "messages"
+        "slug" => $slugs
       ]);
   }
 
